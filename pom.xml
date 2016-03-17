@@ -34,9 +34,9 @@
     <url>http://wso2.org</url>
 
     <scm>
-        <url>https://github.com/wso2-extensions/identity-agent-entitlement-filter.git</url>
-        <developerConnection>scm:git:https://github.com/wso2-extensions/identity-agent-entitlement-filter.git</developerConnection>
-        <connection>scm:git:https://github.com/wso2-extensions/identity-agent-entitlement-filter.git</connection>
+        <url>https://github.com/wso2-extensions/identity-agent-entitlement-proxy.git</url>
+        <developerConnection>scm:git:https://github.com/wso2-extensions/identity-agent-entitlement-proxy.git</developerConnection>
+        <connection>scm:git:https://github.com/wso2-extensions/identity-agent-entitlement-proxy.git</connection>
         <tag>HEAD</tag>
     </scm>
 
