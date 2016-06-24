@@ -158,6 +158,11 @@
                 <version>${opensaml2.wso2.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.wso2.orbit.joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda.wso2.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.ws.security.wso2</groupId>
                 <artifactId>wss4j</artifactId>
                 <version>${wss4j.version}</version>
@@ -178,13 +183,15 @@
         <testng.version>6.3.1</testng.version>
         <libthrift.wso2.version>0.8.0.wso2v1</libthrift.wso2.version>
         <balana.version>1.0.3</balana.version>
-        <opensaml2.wso2.version>2.6.4.wso2v2</opensaml2.wso2.version>
+        <opensaml2.wso2.version>2.6.4.wso2v3</opensaml2.wso2.version>
         <wss4j.version>1.5.11.wso2v13</wss4j.version>
         <xercesImpl.version>2.8.1.wso2v2</xercesImpl.version>
-
         <libthrift.wso2.osgi.version.range>[0.8.0.wso2v1,0.9.0)</libthrift.wso2.osgi.version.range>
         <wss4j.xml.security.imp.pkg.version.range>[1.4.2.patched,2.0.0)</wss4j.xml.security.imp.pkg.version.range>
         <opensaml2.wso2.osgi.version.range>[2.6.0,3.0.0)</opensaml2.wso2.osgi.version.range>
+        <joda.version>2.8.2</joda.version>
+        <joda.wso2.version>2.8.2.wso2v1</joda.wso2.version>
+        <joda.wso2.osgi.version.range>[2.8.2,3.0.0)</joda.wso2.osgi.version.range>
     </properties>
 
     <modules>
