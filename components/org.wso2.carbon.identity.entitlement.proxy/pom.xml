@@ -184,14 +184,14 @@
                             org.w3c.dom.*,
                             org.xml.sax,
                             org.wso2.carbon.authenticator.stub.*;
-                            version="${carbon.kernel.package.import.version.range}",
+                            version="${carbon.kernel.imp.pkg.version.range}",
                             org.wso2.carbon.base; version="${carbon.base.imp.pkg.version.range}",
                             org.wso2.carbon.identity.entitlement.stub.*;
-                            version="${carbon.identity.package.import.version.range}",
+                            version="${carbon.identity.framework.imp.pkg.version.range}",
                         </Import-Package>
                         <Export-Package>
                             org.wso2.carbon.identity.entitlement.proxy.*;
-                            version="${carbon.identity.package.export.version}"
+                            version="${identity.agent.entitlement.proxy.exp.pkg.version}"
                         </Export-Package>
                     </instructions>
                 </configuration>
