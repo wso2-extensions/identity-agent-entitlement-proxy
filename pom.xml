@@ -361,14 +361,14 @@
         <identity.agent.entitlement.proxy.imp.pkg.version.range>[5.0.0,6.0.0)</identity.agent.entitlement.proxy.imp.pkg.version.range>
 
         <!-- Carbon kernel version -->
-        <carbon.kernel.version>4.4.6</carbon.kernel.version>
+        <carbon.kernel.version>4.4.7</carbon.kernel.version>
         <carbon.kernel.imp.pkg.version.range>[4.4.0, 5.0.0)</carbon.kernel.imp.pkg.version.range>
 
         <!--Carbon component version-->
         <carbon.base.imp.pkg.version.range>[1.0.0, 2.0.0)</carbon.base.imp.pkg.version.range>
 
         <!--Carbon Identity Framework version-->
-        <carbon.identity.framework.version>5.1.1-SNAPSHOT</carbon.identity.framework.version>
+        <carbon.identity.framework.version>5.2.0</carbon.identity.framework.version>
         <carbon.identity.framework.imp.pkg.version.range>[5.0.0, 6.0.0)
         </carbon.identity.framework.imp.pkg.version.range>
 
