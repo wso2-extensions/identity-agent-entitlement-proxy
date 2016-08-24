@@ -57,6 +57,7 @@ public class SOAPEntitlementServiceClient extends AbstractEntitlementServiceClie
     private String userName;
     private String password;
     private boolean reuseSession = true;
+    private String authorizedCookie;
 
     public SOAPEntitlementServiceClient(String serverUrl, String username, String password, boolean reuseSession) {
         this.serverUrl = serverUrl;
@@ -65,11 +66,17 @@ public class SOAPEntitlementServiceClient extends AbstractEntitlementServiceClie
         this.reuseSession = reuseSession;
     }
 
+    public SOAPEntitlementServiceClient(String serverUrl, String authorizedCookie, boolean reuseSession) {
+        this.serverUrl = serverUrl;
+        this.authorizedCookie = authorizedCookie;
+        this.reuseSession = reuseSession;
+    }
+
     @Override
     public String getDecision(Attribute[] attributes, String appId) throws Exception {
         String xacmlRequest = XACMLRequetBuilder.buildXACML3Request(attributes);
         EntitlementServiceStub stub = getEntitlementStub(serverUrl);
-        Authenticator authenticator = getAuthenticator(serverUrl, userName, password);
+        Authenticator authenticator = getAuthenticator(serverUrl, userName, password, authorizedCookie);
         String result = getDecision(xacmlRequest, stub, authenticator);
         stub._getServiceClient().cleanupTransport();
         return result;
@@ -87,7 +94,7 @@ public class SOAPEntitlementServiceClient extends AbstractEntitlementServiceClie
         Attribute[] tempArr = {subjectAttribute, actionAttribute, resourceAttribute, environmentAttribute};
         String xacmlRequest = XACMLRequetBuilder.buildXACML3Request(tempArr);
         EntitlementServiceStub stub = getEntitlementStub(serverUrl);
-        Authenticator authenticator = getAuthenticator(serverUrl, userName, password);
+        Authenticator authenticator = getAuthenticator(serverUrl, userName, password, authorizedCookie);
         String result = getDecision(xacmlRequest, stub, authenticator);
         stub._getServiceClient().cleanupTransport();
         return result.contains("Permit");
@@ -111,7 +118,7 @@ public class SOAPEntitlementServiceClient extends AbstractEntitlementServiceClie
         attrs[attrs.length - 1] = new Attribute(CATEGORY_ENVIRONMENT, ENVIRONMENT_ID, ProxyConstants.DEFAULT_DATA_TYPE, domainId);
         String xacmlRequest = XACMLRequetBuilder.buildXACML3Request(attrs);
         EntitlementServiceStub stub = getEntitlementStub(serverUrl);
-        Authenticator authenticator = getAuthenticator(serverUrl, userName, password);
+        Authenticator authenticator = getAuthenticator(serverUrl, userName, password, authorizedCookie);
         String result = getDecision(xacmlRequest, stub, authenticator);
         stub._getServiceClient().cleanupTransport();
         return result.contains("Permit");
@@ -121,7 +128,7 @@ public class SOAPEntitlementServiceClient extends AbstractEntitlementServiceClie
     public List<String> getResourcesForAlias(String alias, String appId) throws Exception {
 
         EntitlementServiceStub stub = getEntitlementStub(serverUrl);
-        Authenticator authenticator = getAuthenticator(serverUrl, userName, password);
+        Authenticator authenticator = getAuthenticator(serverUrl, userName, password, authorizedCookie);
         List<String> results = getResources(getEntitledAttributes(alias, null,
                 ProxyConstants.SUBJECT_ID, null, false, stub, authenticator));
         stub._getServiceClient().cleanupTransport();
@@ -132,7 +139,7 @@ public class SOAPEntitlementServiceClient extends AbstractEntitlementServiceClie
     public List<String> getActionableResourcesForAlias(String alias, String appId) throws Exception {
 
         EntitlementServiceStub stub = getEntitlementStub(serverUrl);
-        Authenticator authenticator = getAuthenticator(serverUrl, userName, password);
+        Authenticator authenticator = getAuthenticator(serverUrl, userName, password, authorizedCookie);
         List<String> results = getResources(getEntitledAttributes(alias, null,
                 ProxyConstants.SUBJECT_ID, null, true, stub, authenticator));
         stub._getServiceClient().cleanupTransport();
@@ -144,7 +151,7 @@ public class SOAPEntitlementServiceClient extends AbstractEntitlementServiceClie
             throws Exception {
 
         EntitlementServiceStub stub = getEntitlementStub(serverUrl);
-        Authenticator authenticator = getAuthenticator(serverUrl, userName, password);
+        Authenticator authenticator = getAuthenticator(serverUrl, userName, password, authorizedCookie);
         List<String> results = getActions(getEntitledAttributes(alias, resource,
                 ProxyConstants.SUBJECT_ID, null, false, stub, authenticator));
         stub._getServiceClient().cleanupTransport();
@@ -157,26 +164,32 @@ public class SOAPEntitlementServiceClient extends AbstractEntitlementServiceClie
 
         EntitlementServiceStub stub = getEntitlementStub(serverUrl);
         Authenticator authenticator = getAuthenticator(serverUrl, userName,
-                password);
+                                                       password, authorizedCookie);
         List<String> results = getResources(getEntitledAttributes(alias, parentResource,
                 ProxyConstants.SUBJECT_ID, action, true, stub, authenticator));
         stub._getServiceClient().cleanupTransport();
         return results;
     }
 
-    private Authenticator getAuthenticator(String serverUrl, String userName, String password)
+    private Authenticator getAuthenticator(String serverUrl, String userName, String password, String authorizedCookie)
             throws Exception {
 
         if (reuseSession && authenticators.containsKey(serverUrl)) {
             return authenticators.get(serverUrl);
 
         }
-        Authenticator authenticator = new Authenticator(userName, password, serverUrl + "AuthenticationAdmin");
+        Authenticator authenticator;
+        if (authorizedCookie == null) {
+            authenticator = new Authenticator(userName, password, serverUrl + "AuthenticationAdmin");
+        } else {
+            authenticator = new Authenticator(authorizedCookie, serverUrl + "AuthenticationAdmin");
+        }
         setAuthCookie(false, getEntitlementStub(serverUrl), authenticator);
         setAuthCookie(false, getEntitlementAdminStub(serverUrl), authenticator);
         authenticators.put(serverUrl, authenticator);
         return authenticator;
     }
+
 
     private EntitlementServiceStub getEntitlementStub(String serverUrl) throws Exception {
 

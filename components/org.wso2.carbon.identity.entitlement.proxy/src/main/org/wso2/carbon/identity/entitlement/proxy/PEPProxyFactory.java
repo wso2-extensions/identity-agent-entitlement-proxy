@@ -42,6 +42,7 @@ public class PEPProxyFactory {
     public static final String SERVER_URL = "serverUrl";
     public static final String THRIFT_HOST = "thriftHost";
     public static final String THRIFT_PORT = "thriftPort";
+    public static final String AUTHORIZED_COOKIE = "authorizedCookie";
 
     private PEPProxyFactory(){
 
@@ -77,17 +78,28 @@ public class PEPProxyFactory {
                 if (!serverUrl.endsWith("/")) {
                     serverUrl += "/";
                 }
-                if (appConfig.get(USER_NAME) == null || appConfig.get(USER_NAME).length() == 0) {
-                    throw new EntitlementProxyException("userName cannot be null or empty");
-                }
-                if (appConfig.get(PASSWORD) == null || appConfig.get(PASSWORD).length() == 0) {
-                    throw new EntitlementProxyException("password cannot be null or empty");
-                }
+
                 boolean reuseSession = true;
                 if (appConfig.get(REUSE_SESSION) != null) {
                     reuseSession = Boolean.parseBoolean(appConfig.get(REUSE_SESSION));
                 }
-                appToPDPClientMap.put(appId, new SOAPEntitlementServiceClient(serverUrl, appConfig.get(USER_NAME), appConfig.get(PASSWORD), reuseSession));
+
+                if (appConfig.get(AUTHORIZED_COOKIE) == null || appConfig.get(AUTHORIZED_COOKIE).length() == 0) {
+                    if (appConfig.get(USER_NAME) == null || appConfig.get(USER_NAME).length() == 0) {
+                        throw new EntitlementProxyException("userName cannot be null or empty");
+                    }
+                    if (appConfig.get(PASSWORD) == null || appConfig.get(PASSWORD).length() == 0) {
+                        throw new EntitlementProxyException("password cannot be null or empty");
+                    }
+
+                    appToPDPClientMap.put(appId, new SOAPEntitlementServiceClient(serverUrl, appConfig.get(USER_NAME),
+                                                                                  appConfig.get(PASSWORD),
+                                                                                  reuseSession));
+                } else {
+                    appToPDPClientMap.put(appId, new SOAPEntitlementServiceClient(serverUrl, appConfig.get(
+                            AUTHORIZED_COOKIE), reuseSession));
+                }
+
             } else if (ProxyConstants.BASIC_AUTH.equals(client)) {
                 if (appConfig.get(SERVER_URL) == null || appConfig.get(SERVER_URL).length() == 0) {
                     throw new EntitlementProxyException("serverUrl cannot be null or empty");
