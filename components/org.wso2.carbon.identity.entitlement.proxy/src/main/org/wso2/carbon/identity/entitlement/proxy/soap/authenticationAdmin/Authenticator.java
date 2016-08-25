@@ -24,6 +24,7 @@ import org.apache.axis2.context.ConfigurationContext;
 import org.apache.axis2.context.ConfigurationContextFactory;
 import org.apache.axis2.description.TransportOutDescription;
 import org.apache.axis2.transport.http.HTTPConstants;
+import org.apache.commons.lang.StringUtils;
 import org.wso2.carbon.authenticator.stub.AuthenticationAdminStub;
 import org.wso2.carbon.identity.entitlement.proxy.exception.EntitlementProxyException;
 
@@ -63,8 +64,8 @@ public class Authenticator {
         for (TransportOutDescription transportOutDescription : transportsOut.values()) {
             transportOutDescription.getSender().init(configurationContext, transportOutDescription);
         }
-        boolean isAuthenticated;
-        if (authorizedCookie == null) {
+        boolean isAuthenticated = false;
+        if (StringUtils.isNotEmpty(userName) && StringUtils.isNotEmpty(password)) {
             //if authorized cookie is not available authorize using credentials
             AuthenticationAdminStub authAdmin = new AuthenticationAdminStub(configurationContext,
                                                                             serverUrl);
@@ -72,7 +73,7 @@ public class Authenticator {
             cookie = (String) authAdmin._getServiceClient().getServiceContext()
                     .getProperty(HTTPConstants.COOKIE_STRING);
             authAdmin._getServiceClient().cleanupTransport();
-        } else {
+        } else if (StringUtils.isNotEmpty(authorizedCookie)) {
             //when authorized cookie is available assign it to local variable
             isAuthenticated = true;
             cookie = authorizedCookie;

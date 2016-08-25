@@ -20,6 +20,7 @@
 
 package org.wso2.carbon.identity.entitlement.proxy;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wso2.carbon.identity.entitlement.proxy.exception.EntitlementProxyException;
@@ -84,22 +85,21 @@ public class PEPProxyFactory {
                     reuseSession = Boolean.parseBoolean(appConfig.get(REUSE_SESSION));
                 }
 
-                if (appConfig.get(AUTHORIZED_COOKIE) == null || appConfig.get(AUTHORIZED_COOKIE).length() == 0) {
-                    if (appConfig.get(USER_NAME) == null || appConfig.get(USER_NAME).length() == 0) {
-                        throw new EntitlementProxyException("userName cannot be null or empty");
-                    }
-                    if (appConfig.get(PASSWORD) == null || appConfig.get(PASSWORD).length() == 0) {
-                        throw new EntitlementProxyException("password cannot be null or empty");
-                    }
-
+                if (StringUtils.isNotEmpty(appConfig.get(AUTHORIZED_COOKIE))) {
+                    //if authorized cookie is available
+                    appToPDPClientMap.put(appId, new SOAPEntitlementServiceClient(serverUrl, appConfig.get(
+                            AUTHORIZED_COOKIE), reuseSession));
+                } else if (StringUtils.isNotEmpty(appConfig.get(USER_NAME)) && StringUtils.isNotEmpty(appConfig.get(
+                        PASSWORD))) {
+                    //if authorized credentials are available
                     appToPDPClientMap.put(appId, new SOAPEntitlementServiceClient(serverUrl, appConfig.get(USER_NAME),
                                                                                   appConfig.get(PASSWORD),
                                                                                   reuseSession));
                 } else {
-                    appToPDPClientMap.put(appId, new SOAPEntitlementServiceClient(serverUrl, appConfig.get(
-                            AUTHORIZED_COOKIE), reuseSession));
+                    //when non of the authenticators available, trigger an exception
+                    throw new EntitlementProxyException(
+                            "Authentication failed. Either authorized cookie or username/password required to proceed.");
                 }
-
             } else if (ProxyConstants.BASIC_AUTH.equals(client)) {
                 if (appConfig.get(SERVER_URL) == null || appConfig.get(SERVER_URL).length() == 0) {
                     throw new EntitlementProxyException("serverUrl cannot be null or empty");
