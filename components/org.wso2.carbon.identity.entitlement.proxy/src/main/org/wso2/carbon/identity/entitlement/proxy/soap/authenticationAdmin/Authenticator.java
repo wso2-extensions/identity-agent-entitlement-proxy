@@ -24,6 +24,7 @@ import org.apache.axis2.context.ConfigurationContext;
 import org.apache.axis2.context.ConfigurationContextFactory;
 import org.apache.axis2.description.TransportOutDescription;
 import org.apache.axis2.transport.http.HTTPConstants;
+import org.apache.commons.lang.StringUtils;
 import org.wso2.carbon.authenticator.stub.AuthenticationAdminStub;
 import org.wso2.carbon.identity.entitlement.proxy.exception.EntitlementProxyException;
 
@@ -35,6 +36,7 @@ public class Authenticator {
     private String password;
     private String serverUrl;
     private String cookie;
+    private String authorizedCookie;
 
     public Authenticator(String userName, String password, String serverUrl) throws Exception {
         this.userName = userName;
@@ -46,20 +48,36 @@ public class Authenticator {
         }
     }
 
+    public Authenticator(String authorizedCookie, String serverUrl) throws Exception {
+        this.authorizedCookie = authorizedCookie;
+        this.serverUrl = serverUrl;
+        if (!authenticate()) {
+            throw new EntitlementProxyException("Authentication Failed");
+        }
+    }
+
     private boolean authenticate() throws Exception {
         ConfigurationContext configurationContext;
         configurationContext = ConfigurationContextFactory.createDefaultConfigurationContext();
-        Map<String, TransportOutDescription> transportsOut =configurationContext
+        Map<String, TransportOutDescription> transportsOut = configurationContext
                 .getAxisConfiguration().getTransportsOut();
         for (TransportOutDescription transportOutDescription : transportsOut.values()) {
             transportOutDescription.getSender().init(configurationContext, transportOutDescription);
         }
-        AuthenticationAdminStub authAdmin = new AuthenticationAdminStub(configurationContext,
-                serverUrl);
-        boolean isAuthenticated = authAdmin.login(userName, password, "localhost");
-        cookie = (String) authAdmin._getServiceClient().getServiceContext()
-                .getProperty(HTTPConstants.COOKIE_STRING);
-        authAdmin._getServiceClient().cleanupTransport();
+        boolean isAuthenticated = false;
+        if (StringUtils.isNotEmpty(userName) && StringUtils.isNotEmpty(password)) {
+            //if authorized cookie is not available authorize using credentials
+            AuthenticationAdminStub authAdmin = new AuthenticationAdminStub(configurationContext,
+                                                                            serverUrl);
+            isAuthenticated = authAdmin.login(userName, password, "localhost");
+            cookie = (String) authAdmin._getServiceClient().getServiceContext()
+                    .getProperty(HTTPConstants.COOKIE_STRING);
+            authAdmin._getServiceClient().cleanupTransport();
+        } else if (StringUtils.isNotEmpty(authorizedCookie)) {
+            //when authorized cookie is available assign it to local variable
+            isAuthenticated = true;
+            cookie = authorizedCookie;
+        }
         return isAuthenticated;
 
     }
