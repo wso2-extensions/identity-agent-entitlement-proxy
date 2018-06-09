@@ -30,7 +30,9 @@
     <version>5.1.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>WSO2 Carbon - Identity Entitlement PDP Proxy</name>
-    <description/>
+    <description>
+
+    </description>
     <url>http://wso2.org</url>
 
     <scm>
@@ -463,16 +465,13 @@
         <jacoco.version>0.8.0</jacoco.version>
         <wss4j.version>1.5.11.wso2v15</wss4j.version>
         <xercesImpl.version>2.8.1.wso2v2</xercesImpl.version>
-
         <wss4j.xml.security.imp.pkg.version.range>[1.4.2.patched,2.0.0)</wss4j.xml.security.imp.pkg.version.range>
 
         <!-- Other library version -->
         <org.slf4j.verison>1.6.1</org.slf4j.verison>
-
         <org.slf4j.imp.pkg.version.range>[1.6.1,2.0.0)</org.slf4j.imp.pkg.version.range>
 
         <balana.version>1.0.5</balana.version>
-
         <testng.version>6.3.1</testng.version>
 
         <!--Maven Plugin Version-->
@@ -481,7 +480,6 @@
         <maven.bundle.plugin.version>2.4.0</maven.bundle.plugin.version>
         <maven.buildnumber.plugin.version>1.4</maven.buildnumber.plugin.version>
         <maven.surefire.plugin.version>2.21.0</maven.surefire.plugin.version>
-
     </properties>
 
 </project>
