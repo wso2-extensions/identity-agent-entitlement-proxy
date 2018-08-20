@@ -26,6 +26,7 @@ public class Attribute {
     private String id;
     private String value;
     private String category;
+    private String content;
 
     public Attribute(String category, String id, String type, String value) {
         this.category = category;
@@ -34,6 +35,14 @@ public class Attribute {
         this.value = value;
     }
 
+    public Attribute(String category, String id, String type, String value, String content) {
+
+        this.category = category;
+        this.id = id;
+        this.type = type;
+        this.value = value;
+        this.content = content;
+    }
 
     public String getCategory() {
         return category;
@@ -67,6 +76,17 @@ public class Attribute {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public String getContent() {
+
+        return content;
+    }
+
+    public void setContent(String content) {
+
+        this.content = content;
+    }
+
 
     @Override
     public int hashCode() {

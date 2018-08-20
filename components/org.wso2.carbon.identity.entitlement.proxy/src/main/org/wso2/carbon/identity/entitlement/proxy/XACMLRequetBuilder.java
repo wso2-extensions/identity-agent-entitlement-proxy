@@ -23,8 +23,13 @@ package org.wso2.carbon.identity.entitlement.proxy;
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
 import org.apache.axiom.om.OMFactory;
+import org.apache.axiom.om.util.AXIOMUtil;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.xml.namespace.QName;
+import javax.xml.stream.XMLStreamException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -32,6 +37,7 @@ import java.util.Set;
 
 public class XACMLRequetBuilder {
 
+    private static final Log log = LogFactory.getLog(XACMLRequetBuilder.class);
 
     public static final String CORE_SCHEMA = "urn:oasis:names:tc:xacml:3.0:core:schema:wd-17";
     public static final String ATTRIBUTE_ID = "AttributeId";
@@ -82,6 +88,16 @@ public class XACMLRequetBuilder {
                     }
                 }
                 requestXML.addChild(attributesXML);
+                if (StringUtils.isNotEmpty(attribute.getContent())) {
+                    try {
+                        OMElement omContent = AXIOMUtil.stringToOM(attribute.getContent());
+                        OMElement contentValueXML = factory.createOMElement("Content", null);
+                        contentValueXML.addChild(omContent.getFirstElement());
+                        attributesXML.addChild(contentValueXML);
+                    } catch (XMLStreamException e) {
+                        log.error("Error in generating XACML Content element", e);
+                    }
+                }
             } else {
                 Iterator itr = requestXML.getChildElements();
                 while (itr.hasNext()) {
