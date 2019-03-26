@@ -150,9 +150,9 @@
                 <version>${carbon.identity.framework.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.carbon.identity.framework</groupId>
+                <groupId>org.wso2.carbon.commons</groupId>
                 <artifactId>org.wso2.carbon.identity.entitlement.stub</artifactId>
-                <version>${carbon.identity.framework.version}</version>
+                <version>${carbon.commons.version}</version>
             </dependency>
 
             <!-- Axis2 dependencies -->
@@ -365,6 +365,9 @@
 
         <!--Carbon component version-->
         <carbon.base.imp.pkg.version.range>[1.0.0, 2.0.0)</carbon.base.imp.pkg.version.range>
+
+        <carbon.commons.version>4.6.52</carbon.commons.version>
+        <carbon.commons.imp.pkg.version.range>[4.0.0, 5.0.0)</carbon.commons.imp.pkg.version.range>
 
         <!--Carbon Identity Framework version-->
         <carbon.identity.framework.version>5.5.0</carbon.identity.framework.version>
