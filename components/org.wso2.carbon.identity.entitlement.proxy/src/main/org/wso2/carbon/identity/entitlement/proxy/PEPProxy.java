@@ -21,6 +21,7 @@ package org.wso2.carbon.identity.entitlement.proxy;
 
 import org.wso2.carbon.identity.entitlement.proxy.exception.EntitlementProxyException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -109,6 +110,23 @@ public class PEPProxy {
     public String getDecision(String subject, String resource, String action, String environment) throws Exception {
         return getDecision(subject, resource, action, environment, defaultAppId);
     }
+    
+    /**
+     * This method is used to get the Entitlement decision for the provided 
+     * subject,resource,action, custom attributes and environment using the 
+     * default appID of the PDP defaultProxy
+     *
+     * @param subject     XACML 2.0 subject
+     * @param attributes  XACML 2.0 custom attributes
+     * @param resource    XACML 2.0 resource
+     * @param action      XACML 2.0 action
+     * @param environment XACML 2.0 environments
+     * @return the Entitlement Decision as a String
+     * @throws Exception
+     */
+    public String getDecision(String subject, Attribute[] attributes, String resource, String action, String environment) throws Exception {
+        return getDecision(subject, attributes, resource, action, environment, defaultAppId);
+    }
 
     /**
      * This method is used to get the Entitlement decision for the provided subject,resource,action and environment using the provided appID of the PDP defaultProxy
@@ -133,7 +151,42 @@ public class PEPProxy {
         Attribute[] tempArr = {subjectAttribute, actionAttribute, resourceAttribute, environmentAttribute};
         return getDecision(tempArr, appId);
     }
+    
+    /**
+     * This method is used to get the Entitlement decision for the provided subject,attributes,resource,action and environment using the provided appID of the PDP defaultProxy
+     *
+     * @param subject     XACML 2.0 subject
+     * @param attributes  An array of XACML attributes to send to the PDP Proxy
+     * @param resource    XACML 2.0 resource
+     * @param action      XACML 2.0 action
+     * @param environment XACML 2.0 environments
+     * @param appId       specific appID in the PDP Proxy, there can be many PDPs configured for appID. Each App can have distinct PDPs
+     * @return the Entitlement Decision as a String
+     * @throws Exception
+     */
+    public String getDecision(String subject, Attribute[] attributes, String resource, String action, String environment, String appId) throws Exception {
 
+        if (!appToPDPClientMap.containsKey(appId)) {
+            throw new EntitlementProxyException("Invalid App Id");
+        }
+        Attribute subjectAttribute = new Attribute(
+                URN_OASIS_NAMES_TC_XACML_1_0_SUBJECT_CATEGORY_ACCESS_SUBJECT, URN_OASIS_NAMES_TC_XACML_1_0_SUBJECT_SUBJECT_ID, ProxyConstants.DEFAULT_DATA_TYPE, subject);
+        Attribute actionAttribute = new Attribute(URN_OASIS_NAMES_TC_XACML_3_0_ATTRIBUTE_CATEGORY_ACTION, URN_OASIS_NAMES_TC_XACML_1_0_ACTION_ACTION_ID, ProxyConstants.DEFAULT_DATA_TYPE, action);
+        Attribute resourceAttribute = new Attribute(URN_OASIS_NAMES_TC_XACML_3_0_ATTRIBUTE_CATEGORY_RESOURCE, URN_OASIS_NAMES_TC_XACML_1_0_RESOURCE_RESOURCE_ID, ProxyConstants.DEFAULT_DATA_TYPE, resource);
+        Attribute environmentAttribute = new Attribute(URN_OASIS_NAMES_TC_XACML_3_0_ATTRIBUTE_CATEGORY_ENVIRONMENT, URN_OASIS_NAMES_TC_XACML_1_0_ENVIRONMENT_ENVIRONMENT_ID, ProxyConstants.DEFAULT_DATA_TYPE, environment);
+        Attribute[] tempArr = {actionAttribute, resourceAttribute, environmentAttribute};
+        ArrayList<Attribute> array = new ArrayList<Attribute>();
+        array.add(subjectAttribute);
+        for (Attribute a : attributes) {
+            array.add(a);
+        }
+        for (Attribute a : tempArr) {
+            array.add(a);
+        }
+        tempArr = array.toArray(tempArr);
+        return getDecision(tempArr, appId);
+    }
+    
     public boolean subjectCanActOnResource(String subjectType, String alias, String actionId,
                                            String resourceId, String domainId) throws Exception {
         return subjectCanActOnResource(subjectType, alias, actionId, resourceId, domainId, defaultAppId);

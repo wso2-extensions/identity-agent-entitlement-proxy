@@ -79,7 +79,12 @@ public class PEPProxyFactory {
                 if (!serverUrl.endsWith("/")) {
                     serverUrl += "/";
                 }
-
+                if (appConfig.get(USER_NAME) == null || appConfig.get(USER_NAME).length() == 0) {
+                    throw new EntitlementProxyException("userName cannot be null or empty");
+                }
+                if (appConfig.get(PASSWORD) == null || appConfig.get(PASSWORD).length() == 0) {
+                    throw new EntitlementProxyException("password cannot be null or empty");
+                }
                 boolean reuseSession = true;
                 if (appConfig.get(REUSE_SESSION) != null) {
                     reuseSession = Boolean.parseBoolean(appConfig.get(REUSE_SESSION));
