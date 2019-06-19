@@ -27,7 +27,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.wso2.carbon.identity.agent.entitlement.mediator</groupId>
     <artifactId>identity-agent-entitlement-proxy</artifactId>
-    <version>5.1.8-SNAPSHOT</version>
+    <version>5.2.0</version>
     <packaging>pom</packaging>
     <name>WSO2 Carbon - Identity Entitlement PDP Proxy</name>
     <description>
@@ -39,7 +39,7 @@
         <url>https://github.com/wso2-extensions/identity-agent-entitlement-proxy.git</url>
         <developerConnection>scm:git:https://github.com/wso2-extensions/identity-agent-entitlement-proxy.git</developerConnection>
         <connection>scm:git:https://github.com/wso2-extensions/identity-agent-entitlement-proxy.git</connection>
-        <tag>HEAD</tag>
+        <tag>v5.2.0</tag>
     </scm>
 
     <modules>
