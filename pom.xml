@@ -360,15 +360,15 @@
         <identity.agent.entitlement.proxy.imp.pkg.version.range>[5.0.0,6.0.0)</identity.agent.entitlement.proxy.imp.pkg.version.range>
 
         <!-- Carbon kernel version -->
-        <carbon.kernel.version>4.4.7</carbon.kernel.version>
-        <carbon.kernel.imp.pkg.version.range>[4.4.0, 5.0.0)</carbon.kernel.imp.pkg.version.range>
+        <carbon.kernel.version>4.5.0-m1</carbon.kernel.version>
+        <carbon.kernel.imp.pkg.version.range>[4.5.0, 5.0.0)</carbon.kernel.imp.pkg.version.range>
 
         <!--Carbon component version-->
         <carbon.base.imp.pkg.version.range>[1.0.0, 2.0.0)</carbon.base.imp.pkg.version.range>
 
         <!--Carbon Identity Framework version-->
-        <carbon.identity.framework.version>5.5.0</carbon.identity.framework.version>
-        <carbon.identity.framework.imp.pkg.version.range>[5.0.0, 6.0.0)
+        <carbon.identity.framework.version>5.13.0</carbon.identity.framework.version>
+        <carbon.identity.framework.imp.pkg.version.range>[5.13.0, 6.0.0)
         </carbon.identity.framework.imp.pkg.version.range>
 
         <!-- Commons version -->
@@ -383,11 +383,11 @@
         <commons-pool.wso2.osgi.version.range>[1.5.6,2.0.0)</commons-pool.wso2.osgi.version.range>
 
         <!-- Axis2 Version -->
-        <axis2.wso2.version>1.6.1.wso2v12</axis2.wso2.version>
+        <axis2.wso2.version>1.6.1-wso2v37</axis2.wso2.version>
         <axis2.osgi.version.range>[1.6.1.wso2v12, 2.0.0)</axis2.osgi.version.range>
 
         <!-- Axiom Version -->
-        <axiom.wso2.version>1.2.11-wso2v10</axiom.wso2.version>
+        <axiom.wso2.version>1.2.11-wso2v16</axiom.wso2.version>
         <axiom.osgi.version.range>[1.2.11, 2.0.0)</axiom.osgi.version.range>
 
         <!-- Orbit version -->
@@ -413,7 +413,7 @@
         <org.slf4j.verison>1.6.1</org.slf4j.verison>
         <org.slf4j.imp.pkg.version.range>[1.6.1,2.0.0)</org.slf4j.imp.pkg.version.range>
 
-        <balana.version>1.0.5</balana.version>
+        <balana.version>1.1.14</balana.version>
         <testng.version>6.3.1</testng.version>
 
         <!--Maven Plugin Version-->
