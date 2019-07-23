@@ -181,11 +181,6 @@
 
             <!-- Commons dependencies -->
             <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>${commons-logging.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>commons-httpclient.wso2</groupId>
                 <artifactId>commons-httpclient</artifactId>
                 <version>${commons-httpclient.wso2.version}</version>
@@ -272,14 +267,16 @@
 
             <!-- Other dependencies -->
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${org.slf4j.verison}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
                 <version>${testng.version}</version>
+            </dependency>
+
+            <!-- Pax Logging -->
+            <dependency>
+                <groupId>org.ops4j.pax.logging</groupId>
+                <artifactId>pax-logging-api</artifactId>
+                <version>${pax.logging.api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -377,9 +374,8 @@
         <commons-lang.wso2.version>2.6.0.wso2v1</commons-lang.wso2.version>
         <commons-io.wso2.version>2.4.0.wso2v1</commons-io.wso2.version>
         <commons-httpclient.wso2.version>3.1.0.wso2v2</commons-httpclient.wso2.version>
-        <commons-logging.version>1.2</commons-logging.version>
         <commons-httpclient.wso2.osgi.version>[3.1.0,4.0.0)</commons-httpclient.wso2.osgi.version>
-        <commons-logging.osgi.version.range>[1.2,2.0)</commons-logging.osgi.version.range>
+        <commons-logging.osgi.version.range>[1.2.0,2.0.0)</commons-logging.osgi.version.range>
         <commons-pool.wso2.osgi.version.range>[1.5.6,2.0.0)</commons-pool.wso2.osgi.version.range>
 
         <!-- Axis2 Version -->
@@ -410,7 +406,6 @@
         <wss4j.xml.security.imp.pkg.version.range>[1.4.2.patched,2.0.0)</wss4j.xml.security.imp.pkg.version.range>
 
         <!-- Other library version -->
-        <org.slf4j.verison>1.6.1</org.slf4j.verison>
         <org.slf4j.imp.pkg.version.range>[1.6.1,2.0.0)</org.slf4j.imp.pkg.version.range>
 
         <balana.version>1.1.14</balana.version>
@@ -421,6 +416,9 @@
         <maven.scr.plugin.version>1.7.2</maven.scr.plugin.version>
         <maven.bundle.plugin.version>2.4.0</maven.bundle.plugin.version>
         <maven.buildnumber.plugin.version>1.4</maven.buildnumber.plugin.version>
+
+        <!-- Pax Logging Version -->
+        <pax.logging.api.version>1.10.1</pax.logging.api.version>
     </properties>
 
 </project>
