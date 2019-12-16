@@ -373,7 +373,7 @@
         <!-- Identity Agent Entitlement proxy version -->
         <identity.agent.entitlement.proxy.version>${project.version}</identity.agent.entitlement.proxy.version>
         <identity.agent.entitlement.proxy.exp.pkg.version>${identity.agent.entitlement.proxy.version}</identity.agent.entitlement.proxy.exp.pkg.version>
-        <identity.agent.entitlement.proxy.imp.pkg.version.range>[5.3.0,6.0.0)</identity.agent.entitlement.proxy.imp.pkg.version.range>
+        <identity.agent.entitlement.proxy.imp.pkg.version.range>[5.3.0, 6.0.0)</identity.agent.entitlement.proxy.imp.pkg.version.range>
 
         <!-- Carbon kernel version -->
         <carbon.kernel.version>4.5.0</carbon.kernel.version>
@@ -394,7 +394,7 @@
         <commons-io.wso2.version>2.4.0.wso2v1</commons-io.wso2.version>
         <commons-httpclient.wso2.version>3.1.0.wso2v2</commons-httpclient.wso2.version>
         <commons-httpclient.wso2.osgi.version>[3.1.0,4.0.0)</commons-httpclient.wso2.osgi.version>
-        <commons-logging.osgi.version.range>[1.2.0,2.0.0)</commons-logging.osgi.version.range>
+        <commons-logging.osgi.version.range>[1.2.0, 2.0.0)</commons-logging.osgi.version.range>
         <commons-pool.wso2.osgi.version.range>[1.5.6,2.0.0)</commons-pool.wso2.osgi.version.range>
 
         <!-- Axis2 Version -->
