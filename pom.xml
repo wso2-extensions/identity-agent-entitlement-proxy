@@ -392,7 +392,7 @@
         <identity.agent.entitlement.proxy.imp.pkg.version.range>[5.3.0, 6.0.0)</identity.agent.entitlement.proxy.imp.pkg.version.range>
 
         <!-- Carbon kernel version -->
-        <carbon.kernel.version>4.5.0</carbon.kernel.version>
+        <carbon.kernel.version>4.6.0</carbon.kernel.version>
         <carbon.kernel.imp.pkg.version.range>[4.5.0, 5.0.0)</carbon.kernel.imp.pkg.version.range>
 
         <!--Carbon component version-->
