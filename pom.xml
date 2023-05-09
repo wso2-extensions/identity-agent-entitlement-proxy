@@ -361,7 +361,7 @@
         <saml.common.util.version.range>[1.0.0,2.0.0)</saml.common.util.version.range>
 
         <libthrift.wso2.version>0.16.0.wso2v1</libthrift.wso2.version>
-        <libthrift.wso2.osgi.version.range>[0.16.0.wso2v1,0.17.0)</libthrift.wso2.osgi.version.range>
+        <libthrift.wso2.osgi.version.range>[0.16.0.wso2v1,1.0.0)</libthrift.wso2.osgi.version.range>
 
         <httpcore.version>4.3.3.wso2v1</httpcore.version>
         <neethi.osgi.version>2.0.4.wso2v5</neethi.osgi.version>
