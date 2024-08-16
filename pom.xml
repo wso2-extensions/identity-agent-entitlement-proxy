@@ -223,6 +223,11 @@
                 <artifactId>org.wso2.carbon.identity.saml.common.util</artifactId>
                 <version>${saml.common.util.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -257,6 +262,25 @@
                         <doCheck>false</doCheck>
                         <doUpdate>false</doUpdate>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -385,6 +409,8 @@
 
         <!-- Pax Logging Version -->
         <pax.logging.api.version>1.10.1</pax.logging.api.version>
+    
+        <jacoco.version>0.8.12</jacoco.version>
     </properties>
 
 </project>
